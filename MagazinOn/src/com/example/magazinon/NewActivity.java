@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.magazinon.R;
+import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import android.app.ListActivity;
@@ -29,41 +30,6 @@ public class NewActivity  extends ListActivity{
         produse = new ArrayList<String>();
         
         
-        Map<String, String> params = new HashMap<String, String>();
-        ServerConnection.sharedInstance().getRequest("/list/", params, new AsyncHttpResponseHandler()
-                {
-                    @Override
-                    public void onSuccess(String js) 
-                    {
-                        super.onSuccess(js);
-                        System.out.println("LIST Post Request Succesfull");
-
-                        JSONArray jsonList;
-                        try 
-                        {
-                            jsonList = new JSONArray(js);
-                                for(int i = 0; i < jsonList.length(); i++) {
-                                    JSONObject jsonElem = (JSONObject) jsonList.get(i);
-                                    produse.add(jsonElem.toString());
-                                    
-                                    /*System.out.println(jsonElem.toString());*/
-                                    }
-                               
-                        }  
-                        catch (JSONException e) {
-                            System.out.println(e);
-                        }
-
-                    }
-
-                    @SuppressWarnings("deprecation")
-                    @Override
-                    public void onFailure(Throwable arg0) {
-                        System.out.println("LIST Post Request Failed " + arg0.getMessage());
-                        super.onFailure(arg0);
-                    }
-                });
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, produse);
-        setListAdapter(adapter);
+        
 	}
 }
